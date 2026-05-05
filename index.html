@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World's Best River Rafting Spots</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0a0f1e;
+      color: #e8f4f8;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #0a1628 0%, #0d2b45 50%, #0a3d2e 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(0,120,200,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 40%, rgba(0,180,120,0.12) 0%, transparent 60%);
+    }
+
+    .wave-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      animation: bob 3s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      position: relative;
+      background: linear-gradient(135deg, #5eead4, #38bdf8, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: #94a3b8;
+      max-width: 560px;
+      line-height: 1.7;
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(14,165,233,0.35);
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(14,165,233,0.5);
+    }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      padding: 2.5rem 2rem;
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .stat { text-align: center; }
+    .stat .number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .stat .label {
+      font-size: 0.8rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.2rem;
+    }
+
+    /* Section */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    section h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 3rem;
+      font-size: 1rem;
+    }
+
+    /* Cards grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+
+    .card-img {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+    }
+
+    .card-body { padding: 1.4rem; }
+
+    .card-body h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: #e2e8f0;
+    }
+
+    .card-location {
+      font-size: 0.8rem;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .card-body p {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .badge-extreme { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .badge-hard    { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+    .badge-medium  { background: rgba(234,179,8,0.15);  color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+    .badge-easy    { background: rgba(34,197,94,0.15);  color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+
+    /* Tips section */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .tip {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .tip .icon { font-size: 2.2rem; margin-bottom: 0.75rem; }
+    .tip h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: #e2e8f0; }
+    .tip p { font-size: 0.82rem; color: #64748b; line-height: 1.5; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: #334155;
+      font-size: 0.85rem;
+    }
+
+    footer span { color: #38bdf8; }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="wave-icon">🌊</div>
+    <h1>World's Best River Rafting Spots</h1>
+    <p>From the raging rapids of the Zambezi to the wild waters of the Colorado — explore the planet's most thrilling whitewater adventures.</p>
+    <a href="#spots" class="cta">Explore the Spots</a>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="number">12</div><div class="label">Epic Rivers</div></div>
+    <div class="stat"><div class="number">6</div><div class="label">Continents</div></div>
+    <div class="stat"><div class="number">I–VI</div><div class="label">Difficulty Range</div></div>
+    <div class="stat"><div class="number">∞</div><div class="label">Memories Made</div></div>
+  </div>
+
+  <!-- Spots -->
+  <section id="spots">
+    <h2>Top Rafting Destinations</h2>
+    <p class="section-sub">Rated by difficulty, scenery, and sheer adrenaline</p>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-img" style="background: linear-gradient(135deg,#1a3a2a,#0d2b1a);">🦁</div>
+        <div class="card-body">
+          <div class="card-location">Zambia / Zimbabwe</div>
+          <h3>Zambezi River</h3>
+          <p>Below Victoria Falls, the Zambezi delivers some of the most intense Class V rapids on Earth. Massive waves, surging holes, and breathtaking gorge scenery.</p>
+          <span class="badge badge-extreme">Class V · Extreme</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background: linear-gradient(135deg,#1a2a3a,#0d1b2b);">🦅</div>
+        <div class="card-body">
+          <div class="card-location">USA · Arizona</div>
+          <h3>Colorado River — Grand Canyon</h3>
+          <p>A multi-day journey through one of the world's greatest geological wonders. Mile-long rapids alternate with calm stretches revealing billion-year-old canyon walls.</p>
+          <span class="badge badge-hard">Class III–V · Hard</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background: linear-gradient(135deg,#2a1a3a,#1b0d2b);">🏔️</div>
+        <div class="card-body">
+          <div class="card-location">Nepal</div>
+          <h3>Sun Kosi River</h3>
+          <p>Nine days through remote Himalayan gorges. The "River of Gold" winds past terraced hillsides, traditional villages, and non-stop whitewater action.</p>
+          <span class="badge badge-hard">Class IV–V · Hard</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background: linear-gradient(135deg,#1a3a1a,#0d2b0d);">🌿</div>
+        <div class="card-body">
+          <div class="card-location">Uganda</div>
+          <h3>Nile River — Jinja</h3>
+          <p>The source of the world's longest river serves up long, powerful rapids in a lush tropical setting. One of Africa's most accessible extreme rafting experiences.</p>
+          <span class="badge badge-extreme">Class V · Extreme</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background: linear-gradient(135deg,#2a2a1a,#1b1b0d);">🦜</div>
+        <div class="card-body">
+          <div class="card-location">Chile · Patagonia</div>
+          <h3>Futaleufú River</h3>
+          <p>Turquoise glacial water, soaring Andean peaks, and furious Class V rapids make the "Fu" legendary among serious paddlers worldwide.</p>
+          <span class="badge badge-extreme">Class V · Extreme</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background: linear-gradient(135deg,#1a2a3a,#0a1a2a);">🏄</div>
+        <div class="card-body">
+          <div class="card-location">USA · West Virginia</div>
+          <h3>New River Gorge</h3>
+          <p>America's newest national park hosts one of the East Coast's best whitewater runs. Dramatic sandstone gorge, reliable rapids, and great for intermediate paddlers.</p>
+          <span class="badge badge-medium">Class III–IV · Medium</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background: linear-gradient(135deg,#3a1a1a,#2b0d0d);">🐊</div>
+        <div class="card-body">
+          <div class="card-location">Ethiopia</div>
+          <h3>Omo River</h3>
+          <p>An epic wilderness expedition through tribal lands and remote gorges. One of the last truly wild river journeys on the planet, for experienced expeditioners only.</p>
+          <span class="badge badge-extreme">Class IV–V · Extreme</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background: linear-gradient(135deg,#1a3a3a,#0d2b2b);">🌊</div>
+        <div class="card-body">
+          <div class="card-location">New Zealand</div>
+          <h3>Shotover River</h3>
+          <p>Carved through schist gorges near Queenstown, the Shotover offers heart-pounding Class IV–V rapids in one of the world's most scenic adventure capitals.</p>
+          <span class="badge badge-hard">Class IV–V · Hard</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img" style="background: linear-gradient(135deg,#2a1a2a,#1a0d1a);">🌺</div>
+        <div class="card-body">
+          <div class="card-location">India</div>
+          <h3>Ganges — Rishikesh</h3>
+          <p>Where spiritual meets adrenaline. The holy Ganges flows through the Himalayan foothills with fun Class III–IV rapids perfect for first-timers and intermediates.</p>
+          <span class="badge badge-medium">Class III–IV · Medium</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Tips -->
+  <section style="background: rgba(255,255,255,0.02); max-width:100%; padding: 5rem 2rem;">
+    <div style="max-width:1100px; margin:0 auto;">
+      <h2>Before You Paddle</h2>
+      <p class="section-sub">Essential tips for a safe and epic trip</p>
+      <div class="tips-grid">
+        <div class="tip">
+          <div class="icon">🦺</div>
+          <h4>Always Wear a PFD</h4>
+          <p>A properly fitted personal flotation device is non-negotiable on any river, regardless of difficulty.</p>
+        </div>
+        <div class="tip">
+          <div class="icon">🪖</div>
+          <h4>Helmet Up</h4>
+          <p>Protect your head from rocks and paddle impacts. Helmets are mandatory on Class III and above.</p>
+        </div>
+        <div class="tip">
+          <div class="icon">🌡️</div>
+          <h4>Know the Water Temp</h4>
+          <p>Cold water can cause shock and hypothermia fast. Dress for immersion, not just the air temperature.</p>
+        </div>
+        <div class="tip">
+          <div class="icon">📋</div>
+          <h4>Scout Unfamiliar Rapids</h4>
+          <p>Always stop and walk the bank to inspect any rapid you haven't run before. When in doubt, portage.</p>
+        </div>
+        <div class="tip">
+          <div class="icon">👥</div>
+          <h4>Never Raft Alone</h4>
+          <p>Always go with a group or hire a licensed guide. Accidents happen — you need people who can help.</p>
+        </div>
+        <div class="tip">
+          <div class="icon">🗺️</div>
+          <h4>Check Water Levels</h4>
+          <p>River conditions change with rainfall and seasons. Always check gauge readings before your trip.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built with passion for the river 🌊 &nbsp;|&nbsp; <span>World River Rafting Guide</span></p>
+  </footer>
+
+</body>
+</html>
